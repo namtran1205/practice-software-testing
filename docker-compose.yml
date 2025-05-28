@@ -1,4 +1,5 @@
-version: '2'
+
+
 services:
   # The Application
   laravel-api:
@@ -60,6 +61,15 @@ services:
       - "host=localhost"
       - DISABLE_LOGGING=${DISABLE_LOGGING}
 
+  # The Cache
+  selenium:
+    image: selenium/standalone-chrome:latest
+    container_name: selenium
+    ports:
+      - "4444:4444"
+    depends_on:
+      - web
+    shm_size: 2g
   composer:
     image: composer:latest
     command: install --no-dev --optimize-autoloader --ignore-platform-req=ext-ffi && chown -R www-data /var/www && chmod 777 /var/www
@@ -100,3 +110,5 @@ volumes:
   db:
   phpmyadmindata:
   laravel-api:
+
+  
